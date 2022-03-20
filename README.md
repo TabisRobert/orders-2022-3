@@ -29,7 +29,14 @@ Modules:
 
 ### Data structure
 
-[//]: # (TODO try to specify)
+- id
+- items
+- amount
+
+### Item structure
+
+- product
+- quantity
 
 ## Products functions
 
@@ -38,6 +45,6 @@ Modules:
 
 ### Data structure
 
+- id
 - name
 - price
-- id
