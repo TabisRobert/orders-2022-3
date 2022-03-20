@@ -1,5 +1,9 @@
 package pl.edu.wszib.orders.api.order;
 
-public record OrderApi() {
-    //TODO impl
+import java.math.BigDecimal;
+import java.util.Set;
+
+public record OrderApi(String id,
+                       Set<OrderItemApi> items,
+                       BigDecimal amount) {
 }

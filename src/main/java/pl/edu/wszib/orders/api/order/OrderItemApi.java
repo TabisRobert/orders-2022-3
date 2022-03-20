@@ -1,5 +1,10 @@
 package pl.edu.wszib.orders.api.order;
 
-public record OrderItemApi() {
-    //TODO impl
+import pl.edu.wszib.orders.api.product.ProductApi;
+
+import java.math.BigDecimal;
+
+public record OrderItemApi(ProductApi product,
+                           Integer quantity,
+                           BigDecimal amount) {
 }
