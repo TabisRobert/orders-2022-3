@@ -4,7 +4,7 @@
 
     <groupId>pl.edu.wszib</groupId>
     <artifactId>orders-2022-3</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>${revision}</version>
 
     <packaging>pom</packaging>
 
@@ -15,9 +15,30 @@
     </modules>
 
     <properties>
+        <revision>0.1.0-SNAPSHOT</revision>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <java.version>17</java.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>pl.edu.wszib</groupId>
+                <artifactId>orders-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pl.edu.wszib</groupId>
+                <artifactId>orders-application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pl.edu.wszib</groupId>
+                <artifactId>orders-infrastructure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <pluginManagement>

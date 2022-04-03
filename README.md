@@ -8,6 +8,10 @@ OpenJDK 17
 
 Maven 3.8.4
 
+If we want to publish our artifacts we should use properly:  
+https://www.mojohaus.org/flatten-maven-plugin/  
+To create poms without **${revision}**
+
 ## Alternative Gradle
 
 mvnw.bat
