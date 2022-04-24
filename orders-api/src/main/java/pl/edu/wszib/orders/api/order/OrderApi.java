@@ -6,4 +6,8 @@ import java.util.Set;
 public record OrderApi(String id,
                        Set<OrderItemApi> items,
                        BigDecimal amount) {
+    public boolean hasProduct(String productId) {
+        return items.stream()
+                .anyMatch(item -> item.hasProduct(productId));
+    }
 }
