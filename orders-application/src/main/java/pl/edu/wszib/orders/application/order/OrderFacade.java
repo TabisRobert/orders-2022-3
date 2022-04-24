@@ -12,12 +12,14 @@ public class OrderFacade implements OrderFacadeApi {
     }
 
     @Override
-    public OrderApi addItem(String orderId, String productId) {
+    public OrderApi addItem(String orderId,
+                            String productId) {
         return null;
     }
 
     @Override
-    public OrderApi removeItem(String orderId, String productId) {
+    public OrderApi removeItem(String orderId,
+                               String productId) {
         return null;
     }
 
