@@ -11,7 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class OrderFacadeTest {
     private final ProductFacade productFacade = new ProductFacade(new InMemoryProductRepository());
-    private final OrderFacade orderFacade = new OrderFacade();
+    //TODO TASK: impl InMemoryOrderRepository
+    private final OrderFacade orderFacade = new OrderFacade(null);
 
     @Test
     public void should_be_able_to_create_order() {

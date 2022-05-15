@@ -6,9 +6,17 @@ import pl.edu.wszib.orders.api.order.OrderFacadeApi;
 import java.util.Optional;
 
 public class OrderFacade implements OrderFacadeApi {
+    private final OrderRepository orderRepository;
+
+    public OrderFacade(final OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
+
     @Override
     public OrderApi create() {
-        return null;
+        final Order order = Order.create();
+        return orderRepository.save(order)
+                .toApi();
     }
 
     @Override
