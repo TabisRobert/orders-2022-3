@@ -23,4 +23,13 @@ public class Order {
                 items.calculateAmount()
         );
     }
+
+    public OrderId id() {
+        return id;
+    }
+
+    public Order addItem() {
+//        items.
+        return null;
+    }
 }

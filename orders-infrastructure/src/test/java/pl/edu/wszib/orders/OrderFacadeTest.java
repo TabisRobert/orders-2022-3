@@ -5,14 +5,14 @@ import pl.edu.wszib.orders.api.order.OrderApi;
 import pl.edu.wszib.orders.api.product.ProductApi;
 import pl.edu.wszib.orders.application.order.OrderFacade;
 import pl.edu.wszib.orders.application.product.ProductFacade;
+import pl.edu.wszib.orders.infrastructure.order.InMemoryOrderRepository;
 import pl.edu.wszib.orders.infrastructure.product.InMemoryProductRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class OrderFacadeTest {
     private final ProductFacade productFacade = new ProductFacade(new InMemoryProductRepository());
-    //TODO TASK: impl InMemoryOrderRepository
-    private final OrderFacade orderFacade = new OrderFacade(null);
+    private final OrderFacade orderFacade = new OrderFacade(new InMemoryOrderRepository(), productFacade);
 
     @Test
     public void should_be_able_to_create_order() {

@@ -5,7 +5,6 @@ import pl.edu.wszib.orders.api.order.OrderItemApi;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 public class OrderItems {
