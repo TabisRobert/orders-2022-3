@@ -1,6 +1,8 @@
 package pl.edu.wszib.orders.application.order;
 
+import pl.edu.wszib.orders.api.Either;
 import pl.edu.wszib.orders.api.order.OrderApi;
+import pl.edu.wszib.orders.api.order.OrderError;
 import pl.edu.wszib.orders.api.order.OrderFacadeApi;
 import pl.edu.wszib.orders.application.product.ProductFacade;
 
@@ -29,25 +31,27 @@ public class OrderFacade implements OrderFacadeApi {
                 .map(Order::toApi);
     }
 
-    //TODO Error handling
     @Override
-    public Optional<OrderApi> addItem(final String orderId,
-                                      final String productId) {
+    public Either<OrderError, OrderApi> addItem(final String orderId,
+                                                final String productId) {
         return orderRepository.findById(OrderId.from(orderId))
-                .flatMap(order -> addItem(order, productId))
-                .map(Order::toApi);
+                .map(order -> addItem(order, productId))
+                .orElse(Either.left(OrderError.orderNotFound(orderId)));
     }
 
-    private Optional<Order> addItem(final Order order,
-                                    final String productId) {
+    private Either<OrderError, OrderApi> addItem(final Order order,
+                                                 final String productId) {
         return productFacade.findById(productId)
                 .map(order::addItem)
-                .map(orderRepository::save);
+                .map(orderRepository::save)
+                .map(Order::toApi)
+                .<Either<OrderError, OrderApi>>map(Either::right)
+                .orElse(Either.left(OrderError.productNotFound(productId)));
     }
 
     @Override
-    public OrderApi removeItem(final String orderId,
-                               final String productId) {
+    public Either<OrderError, OrderApi> removeItem(final String orderId,
+                                                   final String productId) {
         return null;
     }
 }

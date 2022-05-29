@@ -12,4 +12,5 @@ public record OrderId(String id) {
     public static OrderId from(final String orderId) {
         return new OrderId(orderId);
     }
+
 }

@@ -34,4 +34,6 @@ public class Order {
         final OrderItems newItems = items.add(product);
         return new Order(this.id, newItems);
     }
+
+    //TODO removeItem
 }
