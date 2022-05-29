@@ -1,12 +1,14 @@
 package pl.edu.wszib.orders.application.order;
 
 import pl.edu.wszib.orders.api.order.OrderItemApi;
+import pl.edu.wszib.orders.api.product.ProductApi;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+//TODO [EQUALS/HASHCODE]
 public class OrderItems {
     private final Set<OrderItem> items;
 
@@ -15,7 +17,7 @@ public class OrderItems {
     }
 
     public static OrderItems create() {
-        return new OrderItems(new HashSet<>());
+        return new OrderItems(Set.of());
     }
 
     public Set<OrderItemApi> toApi() {
@@ -28,5 +30,11 @@ public class OrderItems {
         return items.stream()
                 .map(OrderItem::calculateAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public OrderItems add(final ProductApi product) {
+        final Set<OrderItem> newItems = new HashSet<>(this.items);
+        newItems.add(OrderItem.create(product));
+        return new OrderItems(Set.copyOf(newItems));
     }
 }

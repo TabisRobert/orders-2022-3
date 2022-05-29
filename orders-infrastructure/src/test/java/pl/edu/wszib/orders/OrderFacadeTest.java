@@ -8,6 +8,8 @@ import pl.edu.wszib.orders.application.product.ProductFacade;
 import pl.edu.wszib.orders.infrastructure.order.InMemoryOrderRepository;
 import pl.edu.wszib.orders.infrastructure.product.InMemoryProductRepository;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class OrderFacadeTest {
@@ -32,12 +34,14 @@ public class OrderFacadeTest {
         final String existingProductId = createExampleProduct().id();
 
         // when: we try to add item with existing product
-        final OrderApi orderWithAddedItem = orderFacade.addItem(existingOrderId, existingProductId);
+        final Optional<OrderApi> orderWithAddedItem = orderFacade.addItem(existingOrderId, existingProductId);
+
+        System.out.println(orderWithAddedItem);
 
         // then: order with added item should not be null
-        assertNotNull(orderWithAddedItem);
+        assertTrue(orderWithAddedItem.isPresent());
         // and: order should contain added product
-        assertOrderContainProduct(orderWithAddedItem, existingProductId);
+        assertOrderContainProduct(orderWithAddedItem.get(), existingProductId);
     }
 
     @Test
@@ -52,6 +56,11 @@ public class OrderFacadeTest {
 
     @Test
     public void when_adding_the_same_product_to_order_twice_it_should_result_increasing_quantity() {
+        fail();
+    }
+
+    @Test
+    public void should_not_be_able_to_find_not_existing_order() {
         fail();
     }
 

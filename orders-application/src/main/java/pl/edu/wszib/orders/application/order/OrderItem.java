@@ -5,15 +5,20 @@ import pl.edu.wszib.orders.api.product.ProductApi;
 
 import java.math.BigDecimal;
 
+//TODO [EQUALS/HASHCODE]
 public class OrderItem {
     private final ProductApi product;
     //https://unitsofmeasurement.github.io/unit-api/
     private final Integer quantity;
 
-    public OrderItem(final ProductApi product,
-                     final Integer quantity) {
+    private OrderItem(final ProductApi product,
+                      final Integer quantity) {
         this.product = product;
         this.quantity = quantity;
+    }
+
+    public static OrderItem create(final ProductApi product) {
+        return new OrderItem(product, 1);
     }
 
     public OrderItemApi toApi() {

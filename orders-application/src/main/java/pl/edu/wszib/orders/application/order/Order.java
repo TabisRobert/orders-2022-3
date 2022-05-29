@@ -1,7 +1,9 @@
 package pl.edu.wszib.orders.application.order;
 
 import pl.edu.wszib.orders.api.order.OrderApi;
+import pl.edu.wszib.orders.api.product.ProductApi;
 
+//TODO [EQUALS/HASHCODE]
 public class Order {
     private final OrderId id;
     private final OrderItems items;
@@ -28,8 +30,8 @@ public class Order {
         return id;
     }
 
-    public Order addItem() {
-//        items.
-        return null;
+    public Order addItem(final ProductApi product) {
+        final OrderItems newItems = items.add(product);
+        return new Order(this.id, newItems);
     }
 }

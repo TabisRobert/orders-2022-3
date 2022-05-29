@@ -24,24 +24,30 @@ public class OrderFacade implements OrderFacadeApi {
     }
 
     @Override
-    public Optional<OrderApi> findById(String orderId) {
+    public Optional<OrderApi> findById(final String orderId) {
         return orderRepository.findById(OrderId.from(orderId))
                 .map(Order::toApi);
     }
 
     //TODO Error handling
     @Override
-    public OrderApi addItem(String orderId,
-                            String productId) {
-        //TODO TASK: impl addItem
-        //TODO find product by given productId, if not exist return null
-        //TODO find order by id and if exists add product with quantity 1, if not exist return null
-        return null;
+    public Optional<OrderApi> addItem(final String orderId,
+                                      final String productId) {
+        return orderRepository.findById(OrderId.from(orderId))
+                .flatMap(order -> addItem(order, productId))
+                .map(Order::toApi);
+    }
+
+    private Optional<Order> addItem(final Order order,
+                                    final String productId) {
+        return productFacade.findById(productId)
+                .map(order::addItem)
+                .map(orderRepository::save);
     }
 
     @Override
-    public OrderApi removeItem(String orderId,
-                               String productId) {
+    public OrderApi removeItem(final String orderId,
+                               final String productId) {
         return null;
     }
 }

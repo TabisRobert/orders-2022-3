@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public interface OrderFacadeApi {
     OrderApi create();
-    OrderApi addItem(String orderId, String productId);
+    Optional<OrderApi> addItem(String orderId, String productId);
     OrderApi removeItem(String orderId, String productId);
     Optional<OrderApi> findById(String orderId);
 }
