@@ -7,7 +7,11 @@ import java.util.Optional;
 public interface OrderFacadeApi {
     OrderApi create();
 
-    Either<OrderError, OrderApi> addItem(String orderId, String productId);
+    default Either<OrderError, OrderApi> addItem(String orderId, String productId) {
+        return addItem(orderId, productId, 1);
+    }
+
+    Either<OrderError, OrderApi> addItem(String orderId, String productId, Integer quantity);
 
     Either<OrderError, OrderApi> removeItem(String orderId, String productId);
 

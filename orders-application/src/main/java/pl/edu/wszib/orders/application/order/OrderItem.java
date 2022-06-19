@@ -18,7 +18,7 @@ public class OrderItem {
     }
 
     public static OrderItem create(final ProductApi product) {
-        return new OrderItem(product, 1);   //TODO support quantity
+        return new OrderItem(product, 1);   //TODO [TASK] support quantity
     }
 
     public OrderItemApi toApi() {

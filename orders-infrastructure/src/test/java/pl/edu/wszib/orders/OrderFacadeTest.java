@@ -72,6 +72,8 @@ public class OrderFacadeTest {
         assertOrderNotContainProduct(result.get(), existingProductId);
     }
 
+    //TODO [TASK] addItem - support quantity
+
     @Test
     public void when_adding_the_same_product_to_order_twice_it_should_result_increasing_quantity() {
         fail();
