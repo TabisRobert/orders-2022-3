@@ -9,8 +9,14 @@ public record OrderError(Code code, String message) {
         return new OrderError(Code.ORDER_NOT_FOUND, "Order with id = " + orderId + " not found.");
     }
 
+    public static OrderError notImplemented(final String message) {
+        return new OrderError(Code.NOT_IMPLEMENTED, message);
+    }
+
     public enum Code {
+        NOT_IMPLEMENTED,
         ORDER_NOT_FOUND,
         PRODUCT_NOT_FOUND,
+
     }
 }

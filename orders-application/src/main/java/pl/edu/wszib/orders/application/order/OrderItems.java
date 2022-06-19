@@ -37,4 +37,12 @@ public class OrderItems {
         newItems.add(OrderItem.create(product));
         return new OrderItems(Set.copyOf(newItems));
     }
+
+    public OrderItems remove(final String productId) {
+        final Set<OrderItem> newItems = items.stream()
+                .filter(item -> item.isNotProduct(productId))
+                .collect(Collectors.toSet());
+        // we ignore situation when product is not part of order
+        return new OrderItems(newItems);
+    }
 }

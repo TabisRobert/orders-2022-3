@@ -35,5 +35,9 @@ public class Order {
         return new Order(this.id, newItems);
     }
 
-    //TODO removeItem
+    public Order removeItem(final String productId) {
+        final OrderItems newItems = items.remove(productId);
+        return new Order(this.id, newItems);
+    }
+
 }

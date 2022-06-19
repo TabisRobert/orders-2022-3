@@ -18,7 +18,7 @@ public class OrderItem {
     }
 
     public static OrderItem create(final ProductApi product) {
-        return new OrderItem(product, 1);
+        return new OrderItem(product, 1);   //TODO support quantity
     }
 
     public OrderItemApi toApi() {
@@ -27,5 +27,13 @@ public class OrderItem {
 
     BigDecimal calculateAmount() {
         return product.price().multiply(BigDecimal.valueOf(quantity));
+    }
+
+    boolean isProduct(final String productId) {
+        return product.hasId(productId);
+    }
+
+    public boolean isNotProduct(final String productId) {
+        return !isProduct(productId);
     }
 }
