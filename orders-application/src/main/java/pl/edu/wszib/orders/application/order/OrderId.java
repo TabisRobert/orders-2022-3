@@ -2,7 +2,6 @@ package pl.edu.wszib.orders.application.order;
 
 import java.util.UUID;
 
-//TODO [EQUALS/HASHCODE]
 public record OrderId(String id) {
 
     public static OrderId create() {

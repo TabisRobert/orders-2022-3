@@ -52,6 +52,15 @@ public class OrderFacade implements OrderFacadeApi {
     @Override
     public Either<OrderError, OrderApi> removeItem(final String orderId,
                                                    final String productId) {
-        return null;
+        return orderRepository.findById(OrderId.from(orderId))
+                .map(order -> removeItem(order, productId))
+                .orElse(Either.left(OrderError.orderNotFound(orderId)));
+    }
+
+    private Either<OrderError, OrderApi> removeItem(final Order order,
+                                                    final String productId) {
+        final Order orderWithoutProduct = order.removeItem(productId);
+        final Order savedOrder = orderRepository.save(orderWithoutProduct);
+        return Either.right(savedOrder.toApi());
     }
 }

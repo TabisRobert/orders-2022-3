@@ -6,6 +6,7 @@ import pl.edu.wszib.orders.api.order.OrderApi;
 import pl.edu.wszib.orders.api.order.OrderError;
 import pl.edu.wszib.orders.api.product.ProductApi;
 import pl.edu.wszib.orders.application.order.OrderFacade;
+import pl.edu.wszib.orders.application.order.OrderId;
 import pl.edu.wszib.orders.application.product.ProductFacade;
 import pl.edu.wszib.orders.infrastructure.order.InMemoryOrderRepository;
 import pl.edu.wszib.orders.infrastructure.product.InMemoryProductRepository;
@@ -44,18 +45,31 @@ public class OrderFacadeTest {
         final String existingProductId = createExampleProduct().id();
 
         // when: we try to add item with existing product
-        final Either<OrderError, OrderApi> orderWithAddedItem = orderFacade.addItem(existingOrderId, existingProductId);
+        final Either<OrderError, OrderApi> result = orderFacade.addItem(existingOrderId, existingProductId);
 
-        // then: order with added item should not be null
-        assertTrue(orderWithAddedItem.isRight());
+        // then: order with added item should be success
+        assertTrue(result.isRight());
         // and: order should contain added product
-        assertOrderContainProduct(orderWithAddedItem.get(), existingProductId);
+        final OrderApi orderWithAddedItem = result.get();
+        assertOrderContainProduct(orderWithAddedItem, existingProductId);
     }
 
     @Test
     public void should_be_able_to_remove_item_from_order() {
-        //TODO Task: impl test and facade
-        fail();
+        // given: we have existing order id
+        final String existingOrderId = createExampleOrder().id();
+        // and: we have existing product id
+        final String existingProductId = createExampleProduct().id();
+        // and: we have successfully added item to order
+        assertTrue(orderFacade.addItem(existingOrderId, existingProductId).isRight());
+
+        // when: we try to remove existing item from order
+        final Either<OrderError, OrderApi> result = orderFacade.removeItem(existingOrderId, existingProductId);
+
+        // then: order with removed item should be success
+        assertTrue(result.isRight());
+        // and: order should not contain removed product
+        assertOrderNotContainProduct(result.get(), existingProductId);
     }
 
     @Test
@@ -67,13 +81,18 @@ public class OrderFacadeTest {
         return orderFacade.create();
     }
 
-    private void assertExist(String id) {
+    private void assertExist(final String id) {
         assertTrue(orderFacade.findById(id).isPresent());
     }
 
-    private void assertOrderContainProduct(OrderApi orderApi,
-                                           String productId) {
+    private void assertOrderContainProduct(final OrderApi orderApi,
+                                           final String productId) {
         assertTrue(orderApi.hasProduct(productId), "order does not contain product id = " + productId);
+    }
+
+    private void assertOrderNotContainProduct(final OrderApi orderApi,
+                                              final String productId) {
+        assertFalse(orderApi.hasProduct(productId), "order should not contain product id = " + productId);
     }
 
     private ProductApi createExampleProduct() {

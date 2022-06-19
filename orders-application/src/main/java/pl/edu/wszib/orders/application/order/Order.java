@@ -3,7 +3,8 @@ package pl.edu.wszib.orders.application.order;
 import pl.edu.wszib.orders.api.order.OrderApi;
 import pl.edu.wszib.orders.api.product.ProductApi;
 
-//TODO [EQUALS/HASHCODE]
+import java.util.Objects;
+
 public class Order {
     private final OrderId id;
     private final OrderItems items;
@@ -35,5 +36,25 @@ public class Order {
         return new Order(this.id, newItems);
     }
 
-    //TODO removeItem
+    public Order removeItem(final String productId) {
+        final OrderItems newItems = items.remove(productId);
+        return new Order(this.id, newItems);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {  // or if we allow classes that extend Order: o instanceof Order
+            return false;
+        }
+        final Order order = (Order) o;
+        return id.equals(order.id) && items.equals(order.items);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
