@@ -1,8 +1,14 @@
 package pl.edu.wszib.orders.consoleui;
 
+import java.util.Scanner;
+
 public class ConsoleUI {
+    private final Scanner scanner = new Scanner(System.in);
 
     public void run() {
+        System.out.println("Wprowadź tekst: ");
+        final String read = scanner.nextLine();
+        System.out.println("Odczytano: " + read);
         // Główne menu:
         // 1. Utwórz zamówienie
         // 2. Wyszukaj zamówienie
