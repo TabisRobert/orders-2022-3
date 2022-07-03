@@ -31,8 +31,9 @@ public class Order {
         return id;
     }
 
-    public Order addItem(final ProductApi product) {
-        final OrderItems newItems = items.add(product);
+    public Order addItem(final ProductApi product,
+                         final Integer quantity) {
+        final OrderItems newItems = items.add(product, quantity);
         return new Order(this.id, newItems);
     }
 

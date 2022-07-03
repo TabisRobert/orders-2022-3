@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public class OrdersApplication {
 
+    //TODO [CI] support github actions
     public static void main(final String[] args) {
         final ProductApi product = new ProductApi("test id", "test name", BigDecimal.TEN);
         final ProductFacade productFacade = new ProductFacade(new InMemoryProductRepository());

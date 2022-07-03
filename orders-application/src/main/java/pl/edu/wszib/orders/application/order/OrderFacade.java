@@ -31,19 +31,20 @@ public class OrderFacade implements OrderFacadeApi {
                 .map(Order::toApi);
     }
 
-    // TODO [TASK] support quantity
     @Override
     public Either<OrderError, OrderApi> addItem(final String orderId,
-                                                final String productId) {
+                                                final String productId,
+                                                final Integer quantity) {
         return orderRepository.findById(OrderId.from(orderId))
-                .map(order -> addItem(order, productId))
+                .map(order -> addItem(order, productId, quantity))
                 .orElse(Either.left(OrderError.orderNotFound(orderId)));
     }
 
     private Either<OrderError, OrderApi> addItem(final Order order,
-                                                 final String productId) {
+                                                 final String productId,
+                                                 final Integer quantity) {
         return productFacade.findById(productId)
-                .map(order::addItem)
+                .map(product -> order.addItem(product, quantity))
                 .map(orderRepository::save)
                 .map(Order::toApi)
                 .<Either<OrderError, OrderApi>>map(Either::right)

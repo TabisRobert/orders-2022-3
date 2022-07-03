@@ -17,8 +17,13 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public static OrderItem create(final ProductApi product) {
-        return new OrderItem(product, 1);   //TODO [TASK] support quantity
+    public static OrderItem create(final ProductApi product,
+                                   final Integer quantity) {
+        return new OrderItem(product, quantity);
+    }
+
+    public OrderItem increaseQuantity(final Integer increaseQuantity) {
+        return new OrderItem(product, quantity + increaseQuantity);
     }
 
     public OrderItemApi toApi() {

@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 import pl.edu.wszib.orders.api.Either;
 import pl.edu.wszib.orders.api.order.OrderApi;
 import pl.edu.wszib.orders.api.order.OrderError;
+import pl.edu.wszib.orders.api.order.OrderItemApi;
 import pl.edu.wszib.orders.api.product.ProductApi;
 import pl.edu.wszib.orders.application.order.OrderFacade;
-import pl.edu.wszib.orders.application.order.OrderId;
 import pl.edu.wszib.orders.application.product.ProductFacade;
 import pl.edu.wszib.orders.infrastructure.order.InMemoryOrderRepository;
 import pl.edu.wszib.orders.infrastructure.product.InMemoryProductRepository;
@@ -72,11 +72,27 @@ public class OrderFacadeTest {
         assertOrderNotContainProduct(result.get(), existingProductId);
     }
 
-    //TODO [TASK] addItem - support quantity
-
     @Test
     public void when_adding_the_same_product_to_order_twice_it_should_result_increasing_quantity() {
-        fail();
+        // given: we have existing order id
+        final String existingOrderId = createExampleOrder().id();
+        // and: we have existing product id
+        final String existingProductId = createExampleProduct().id();
+        // and: we have existing order with product
+        assertTrue(orderFacade.addItem(existingOrderId, existingProductId).isRight());
+
+        // when: we try to add item that already is part of order
+        final Either<OrderError, OrderApi> result = orderFacade.addItem(existingOrderId, existingProductId);
+
+        // then: order with added item should be success
+        assertTrue(result.isRight());
+        final OrderApi order = result.get();
+        // and: order should contain added product
+        assertOrderContainProduct(order, existingProductId);
+        // and: order items count should be 1
+        assertEquals(1, order.items().size());
+        OrderItemApi item = order.items().stream().findFirst().get();
+        assertEquals(2, item.quantity());
     }
 
     private OrderApi createExampleOrder() {

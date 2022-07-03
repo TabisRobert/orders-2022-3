@@ -6,6 +6,7 @@ import pl.edu.wszib.orders.api.product.ProductApi;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,9 +33,16 @@ public class OrderItems {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public OrderItems add(final ProductApi product) {
+    public OrderItems add(final ProductApi product,
+                          final Integer quantity) {
         final Set<OrderItem> newItems = new HashSet<>(this.items);
-        newItems.add(OrderItem.create(product));
+        final OrderItem newOrUpdatedItem = items.stream()
+                .filter(item -> item.isProduct(product.id()))
+                .findFirst()
+                .map(item -> item.increaseQuantity(quantity))
+                .orElseGet(() -> OrderItem.create(product, quantity));
+        newItems.removeIf(item -> item.isProduct(product.id()));
+        newItems.add(newOrUpdatedItem);
         return new OrderItems(Set.copyOf(newItems));
     }
 
