@@ -10,25 +10,12 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>orders-infrastructure</artifactId>
+    <artifactId>orders-console-ui</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>pl.edu.wszib</groupId>
             <artifactId>orders-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>pl.edu.wszib</groupId>
-            <artifactId>orders-application</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>pl.edu.wszib</groupId>
-            <artifactId>orders-console-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
