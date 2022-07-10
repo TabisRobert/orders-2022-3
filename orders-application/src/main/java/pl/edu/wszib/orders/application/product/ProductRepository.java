@@ -8,4 +8,6 @@ public interface ProductRepository {
     ProductApi save(ProductApi product);
 
     Optional<ProductApi> findById(String id);
+
+    void showAllProducts();
 }

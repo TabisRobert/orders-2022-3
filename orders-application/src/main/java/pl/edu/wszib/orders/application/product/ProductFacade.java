@@ -21,4 +21,9 @@ public class ProductFacade implements ProductFacadeApi {
     public Optional<ProductApi> findById(final String id) {
         return productRepository.findById(id);
     }
+
+    @Override
+    public void showAllProducts(){
+        productRepository.showAllProducts();
+    }
 }

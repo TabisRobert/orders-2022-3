@@ -20,4 +20,9 @@ public class InMemoryProductRepository implements ProductRepository {
     public Optional<ProductApi> findById(final String id) {
         return Optional.ofNullable(products.get(id));
     }
+
+    @Override
+    public void showAllProducts() {
+        products.forEach((key, value) -> System.out.println("ID: " + key + " Name: " + value.name() + " Price: " + value.price()));
+    }
 }
